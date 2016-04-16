@@ -1,8 +1,9 @@
 // ==========================================================================
 // Gulp build script
 // ==========================================================================
-/*global require, __dirname*/
+/*global require, __dirname, console*/
 /*jshint -W079 */
+"use strict";
 
 var fs          = require("fs"),
     path        = require("path"),
@@ -11,7 +12,7 @@ var fs          = require("fs"),
     concat      = require("gulp-concat"),
     uglify      = require("gulp-uglify"),
     less        = require("gulp-less"),
-    minify      = require("gulp-minify-css"),
+    clean       = require("gulp-clean-css"),
     run         = require("run-sequence"),
     prefix      = require("gulp-autoprefixer"),
     svgstore    = require("gulp-svgstore"),
@@ -22,29 +23,29 @@ var fs          = require("fs"),
     open        = require("gulp-open"),
     size        = require("gulp-size");
 
-var root = __dirname,
+var r00t = __dirname,
 paths = {
     rangetouch: {
         // Source paths
         src: {
-            js:         path.join(root, "src/js/**/*")
+            js:         path.join(r00t, "src/js/**/*")
         },
         // Output paths
-        output:         path.join(root, "dist/")
+        output:         path.join(r00t, "dist/")
     },
     docs: {
         // Source paths
         src: {
-            less:       path.join(root, "docs/src/less/**/*"),
-            js:         path.join(root, "docs/src/js/**/*"),
-            sprite:     path.join(root, "docs/src/sprite/**/*")
+            less:       path.join(r00t, "docs/src/less/**/*"),
+            js:         path.join(r00t, "docs/src/js/**/*"),
+            sprite:     path.join(r00t, "docs/src/sprite/**/*")
         },
         // Output paths
-        output:         path.join(root, "docs/dist/"),
+        output:         path.join(r00t, "docs/dist/"),
         // Docs
-        root:           path.join(root, "docs/")
+        root:           path.join(r00t, "docs/")
     },
-    upload: [path.join(root, "dist/**"), path.join(root, "docs/dist/**")]
+    upload: [path.join(r00t, "dist/**"), path.join(r00t, "docs/dist/**")]
 },
 
 // Task arrays
@@ -56,8 +57,7 @@ tasks = {
 },
 
 // Fetch bundles from JSON
-bundles = loadJSON(path.join(root, "bundles.json")),
-package = loadJSON(path.join(root, "package.json"));
+bundles = loadJSON(path.join(r00t, "bundles.json"));
 
 // Load json
 function loadJSON(path) {
@@ -103,7 +103,7 @@ var build = {
                         .on("error", gutil.log)
                         .pipe(concat(key))
                         .pipe(prefix(["last 2 versions"], { cascade: true }))
-                        .pipe(minify())
+                        .pipe(clean())
                         .pipe(size({
                             showFiles: true,
                             gzip: true
@@ -175,8 +175,8 @@ gulp.task("default", function(){
 // --------------------------------------------
 
 // Some options
-var aws = loadJSON(path.join(root, "aws.json")),
-version = package.version,
+var aws = loadJSON(path.join(r00t, "aws.json")),
+version = loadJSON(path.join(r00t, "package.json")).version,
 maxAge  = 31536000, // seconds 1 year
 options = {
     cdn: {
@@ -216,7 +216,6 @@ gulp.task("cdn", function () {
         .pipe(rename(function (path) {
             path.dirname = path.dirname.replace(".", version);
         }))
-        .pipe(gzip())
         .pipe(s3(aws.cdn, options.cdn));
 });
 
@@ -225,14 +224,14 @@ gulp.task("docs", function () {
     console.log("Uploading " + version + " docs to " + aws.docs.bucket);
 
     // Replace versioned files in readme.md
-    gulp.src([root + "/readme.md"])
+    gulp.src([r00t + "/readme.md"])
         .pipe(replace(cdnpath, aws.cdn.bucket + "/" + version))
-        .pipe(gulp.dest(root));
+        .pipe(gulp.dest(r00t));
 
     // Replace versioned files in rangetouch.js
-    gulp.src(path.join(root, "src/js/rangetouch.js"))
+    gulp.src(path.join(r00t, "src/js/rangetouch.js"))
         .pipe(replace(semver, "v" + version))
-        .pipe(gulp.dest(path.join(root, "src/js/")));
+        .pipe(gulp.dest(path.join(r00t, "src/js/")));
 
     // Replace local file paths with remote paths in docs
     // e.g. "../dist/rangetouch.js" to "https://cdn.rangetouch.com/x.x.x/rangetouch.js"
