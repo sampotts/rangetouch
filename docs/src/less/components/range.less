@@ -7,16 +7,17 @@
 	height: @range-thumb-height;
 	width: @range-thumb-width;
 	background: @range-thumb-bg;
-	border: 0;
+	border: @range-thumb-border;
 	border-radius: (@range-thumb-height / 2);
 	transition: background .3s ease;
-	box-shadow: 0 1px 2px fade(@gray-dark, 30%);
+	box-shadow: 0 1px 2px fade(@gray-dark, 40%);
 }
 .range-track() {
 	height: @range-track-height;
 	background: @range-track-bg;
 	border: 0;
 	border-radius: (@range-track-height / 2);
+	user-select: none;
 }
 
 input[type='range'] {
@@ -70,16 +71,6 @@ input[type='range'] {
 	&:focus {
 		.tab-focus();
     	outline-offset: 5px;
-
-		&::-webkit-slider-thumb {
-			background: @range-thumb-bg-focus;
-		}
-		&::-moz-range-thumb {
-			background: @range-thumb-bg-focus;
-		}
-		&::-ms-thumb {
-			background: @range-thumb-bg-focus;
-		}
 	}
 }
 

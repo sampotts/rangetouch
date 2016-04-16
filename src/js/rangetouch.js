@@ -81,6 +81,9 @@
             return;
         }
 
+        // Prevent text highlight on iOS
+        event.preventDefault();
+
         // Set value
         event.target.value = getValue(event);
     }
