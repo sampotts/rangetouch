@@ -1,0 +1,28 @@
+{
+    "name": "rangetouch",
+    "description": "A super tiny library to make input type='range' sliders work better on touch devices",
+    "homepage": "https://rangetouch.com",
+    "keywords": [
+        "range",
+        "slider",
+        "rangetouch"
+    ],
+    "authors": [
+        "Sam Potts <sam@selz.com>"
+    ],
+    "dependencies": {},
+    "main": [
+        "dist/rangetouch.js",
+        "src/js/rangetouch.js"
+    ],
+    "ignore": [
+        "node_modules",
+        "bower_components",
+        ".gitignore"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/selz/rangetouch.git"
+    },
+    "license": "MIT"
+}

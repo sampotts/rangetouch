@@ -1,0 +1,70 @@
+// ==========================================================================
+// Base layout
+// ==========================================================================
+
+// BORDER-BOX ALL THE THINGS!
+// http://paulirish.com/2012/box-sizing-border-box-ftw/
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+// Hidden
+[hidden] {
+    display: none;
+}
+
+// Base
+html {
+    height: 100%;
+    font-size: 100%;
+}
+body {
+    display: flex;
+    height: 100%;
+    align-items: center;
+
+    padding: (@padding-base * 3) (@padding-base / 2);
+    background: @body-background;
+
+    font-family: @font-stack;
+    line-height: 1.5;
+    text-align: center;
+    color: @text-color;
+    .font-smoothing(on);
+    text-shadow: 0 1px 1px rgba(0,0,0, .1);
+}
+
+header,
+section {
+    margin-bottom: @padding-base;
+}
+
+// Header
+header p {
+    .font-size(@font-size-large);
+}
+
+// Main container
+main {
+    max-width: 320px;
+    margin: 0 auto;
+    animation: fade-in .2s ease;
+}
+
+// Alert
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: (@padding-base / 2);
+    background: fade(#fff, 95%);
+    color: @gray;
+    text-shadow: none;
+   // .font-size(@font-size-small);
+    animation: fade-in-up .2s ease;
+
+    .icon {
+        margin-right: ceil(@padding-base / 3);
+    }
+}

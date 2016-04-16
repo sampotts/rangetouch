@@ -1,0 +1,21 @@
+{
+    "rangetouch": {
+        "js": {
+            "rangetouch.js": [
+                "src/js/rangetouch.js"
+            ]
+        }
+    },
+    "docs": {
+        "less": {
+            "docs.css": [
+                "docs/src/less/docs.less"
+            ]
+        },
+        "js": {
+            "docs.js": [
+                "docs/src/js/docs.js"
+            ]
+        }
+    }
+}
