@@ -1,4 +1,4 @@
-# rangetouch
+# RangeTouch
 A super tiny library (645 bytes gzipped) to make `<input type="range">` sliders work better on touch devices.
 
 [Checkout the demo](https://rangetouch.com)
