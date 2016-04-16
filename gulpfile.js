@@ -183,15 +183,13 @@ options = {
         headers: {
             "Cache-Control": "max-age=" + maxAge,
             "Vary": "Accept-Encoding"
-        },
-        gzippedOnly: true
+        }
     },
     docs: {
         headers: {
             "Cache-Control": "public, must-revalidate, proxy-revalidate, max-age=0",
             "Vary": "Accept-Encoding"
-        },
-        gzippedOnly: true
+        }
     }
 };
 
@@ -254,7 +252,7 @@ gulp.task("open", function () {
     // Weird, I know...
     gulp.src([paths.docs.root + "index.html"])
         .pipe(open("", {
-            url: "http://" + aws.docs.bucket
+            url: "https://" + aws.docs.bucket
         }));
 });
 

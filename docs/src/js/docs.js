@@ -38,7 +38,9 @@
 		}, 0);
     }
     
-    ['dist/docs.svg'].forEach(loadSprite);
+    window.loadSprites = function(sprites) {
+        sprites.forEach(loadSprite);
+    };   
 
     // Setup shr
 	shr.setup({
