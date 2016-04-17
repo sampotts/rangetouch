@@ -105,8 +105,6 @@
             return;
         }
 
-        //console.log(event);
-
         // Prevent text highlight on iOS
         event.preventDefault();
 
