@@ -21,7 +21,8 @@ var fs          = require("fs"),
     s3          = require("gulp-s3"),
     replace     = require("gulp-replace"),
     open        = require("gulp-open"),
-    size        = require("gulp-size");
+    size        = require("gulp-size"),
+    htmlmin     = require("gulp-htmlmin");
 
 var r00t = __dirname,
 paths = {
@@ -46,6 +47,13 @@ paths = {
         root:           path.join(r00t, "docs/")
     },
     upload: [path.join(r00t, "dist/**"), path.join(r00t, "docs/dist/**")]
+},
+
+// Options for HTML minification
+// https://github.com/kangax/html-minifier
+htmlMinOptions = {
+    collapseWhitespace: true, 
+    removeComments: true
 },
 
 // Task arrays
@@ -214,6 +222,7 @@ gulp.task("cdn", function () {
         .pipe(rename(function (path) {
             path.dirname = path.dirname.replace(".", version);
         }))
+        .pipe(htmlmin(htmlMinOptions))
         .pipe(s3(aws.cdn, options.cdn));
 });
 
@@ -235,11 +244,13 @@ gulp.task("docs", function () {
     // e.g. "../dist/rangetouch.js" to "https://cdn.rangetouch.com/x.x.x/rangetouch.js"
     gulp.src([paths.docs.root + "*.html"])
         .pipe(replace(localpath, "https://" + aws.cdn.bucket + "/" + version))
+        .pipe(htmlmin(htmlMinOptions))
         .pipe(s3(aws.docs, options.docs));
 
     // Upload error.html to cdn (as well as docs site)
     gulp.src([paths.docs.root + "error.html"])
         .pipe(replace(localpath, "https://" + aws.cdn.bucket + "/" + version))
+        .pipe(htmlmin(htmlMinOptions))
         .pipe(s3(aws.cdn, options.docs));
 });
 
