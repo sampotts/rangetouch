@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.6
+- Bug fix for min attrubute
+
 ## v0.0.5
 - Bug fix for breaking other touches
 

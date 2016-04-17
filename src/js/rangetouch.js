@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v0.0.5
+// rangetouch.js v0.0.6
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -40,10 +40,25 @@
         element.addEventListener(type, listener, false);
     }
 
+    // Get the number of decimal places
+    function getDecimalPlaces(value) {
+        var match = ('' + value).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+
+        if (!match) { return 0; }
+
+        return Math.max(
+            0,
+            // Number of digits right of decimal point.
+            (match[1] ? match[1].length : 0)
+            // Adjust for scientific notation.
+            - (match[2] ? +match[2] : 0)
+        );
+    }
+
     // Round to the nearest step
     function roundToStep(number, step) {
         if(step < 1) {
-            var places = parseInt(step).getDecimalCount();
+            var places = getDecimalPlaces(parseInt(step));
             return parseFloat(number.toFixed(places));
         }
         return (Math.round(number / step) * step);
@@ -79,7 +94,7 @@
         }
 
         // Find the closest step to the mouse position
-        return roundToStep(delta * (percent / 100), step);
+        return min + roundToStep(delta * (percent / 100), step);
     }
     
     // Update range value based on position
