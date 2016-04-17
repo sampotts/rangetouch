@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v0.0.3
+// rangetouch.js v0.0.4
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -60,8 +60,8 @@
 
         // Calculate percentage
         var percent,
-            clientRect              = input.getBoundingClientRect(),
-            thumbWidthPercentage    = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
+            clientRect   = input.getBoundingClientRect(),
+            thumbWidth   = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
 
         // Determine left percentage
         percent = ((100 / clientRect.width) * (touch.pageX - clientRect.left));
@@ -69,6 +69,14 @@
         // Don't allow outside bounds
         if (percent < 0) { percent = 0; }
         else if (percent > 100) { percent = 100; }
+
+        // Factor in the thumb offset 
+        if(percent < 50) {
+            percent -= ((100 - (percent * 2)) * thumbWidth);
+        }
+        else if(percent > 50) {
+            percent += (((percent - 50) * 2) * thumbWidth);
+        }
 
         // Find the closest step to the mouse position
         return roundToStep(delta * (percent / 100), step);

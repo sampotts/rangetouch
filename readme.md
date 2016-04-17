@@ -1,5 +1,5 @@
 # RangeTouch
-A super tiny library (645 bytes gzipped) to make `<input type="range">` sliders work better on touch devices.
+A super tiny library (<1KB gzipped) to make `<input type="range">` sliders work better on touch devices.
 
 [Checkout the demo](https://rangetouch.com)
 
@@ -16,7 +16,7 @@ It will automatically bind to all `<input type="range">` elements, even newlt in
 ### CDN
 You can even load RangeTouch from our CDN if you'd like:
 ```html
-<script src="https://cdn.rangetouch.com/0.0.3/rangetouch.js"></script>
+<script src="https://cdn.rangetouch.com/0.0.4/rangetouch.js"></script>
 ```
 
 ### Node Package Manager (NPM)
