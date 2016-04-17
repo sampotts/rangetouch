@@ -1,5 +1,5 @@
 # RangeTouch
-A super tiny library (645 bytes gzipped) to make `<input type="range">` sliders work better on touch devices.
+A super tiny library (<1KB gzipped) to make `<input type="range">` sliders work better on touch devices.
 
 [Checkout the demo](https://rangetouch.com)
 
@@ -7,15 +7,16 @@ A super tiny library (645 bytes gzipped) to make `<input type="range">` sliders 
 While building [plyr](https://plyr.io) I noticed how bad the experience was trying to use `<input type="range">` is on a touch device (particularly iOS). Touching the track on a desktop will jump the thumb handle to that point. However on some touch devices this simply focuses the input and to adjust the value you need to touch and drag the handle. This is something that I can't help but feel will eventually be fixed by the browser vendors but for now, you can use RangeTouch to fill that gap.
 
 ## Quick setup
-To use RangeTouch in it's most basic form, you just need to add `rangetouch.js` (either from the `/dist` (minified) or `/src/js` (unminified) folders) before the closing `</body>` tag like so:
+To use RangeTouch, you just need to add `rangetouch.js` (either from the `/dist` (minified) or `/src/js` (unminified) folders) before the closing `</body>` tag like so:
 ```html
 <script src="/path/to/rangetouch.js"></script>
 ```
+It will automatically bind to all `<input type="range">` elements, even newlt injected ones. 
 
 ### CDN
 You can even load RangeTouch from our CDN if you'd like:
 ```html
-<script src="https://cdn.rangetouch.com/0.0.1/rangetouch.js"></script>
+<script src="https://cdn.rangetouch.com/0.0.4/rangetouch.js"></script>
 ```
 
 ### Node Package Manager (NPM)

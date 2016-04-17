@@ -48,6 +48,7 @@
 			classname: 'btn__count'
 		}
 	});
+
+    // Set range thumb size
+    window.rangetouch.set("thumbWidth", 20);
 })();
-
-
