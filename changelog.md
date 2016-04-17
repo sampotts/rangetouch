@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.7
+- Triggering `input` and `change` events 
+
 ## v0.0.6
 - Bug fix for min attrubute
 

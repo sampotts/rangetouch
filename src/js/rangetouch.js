@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v0.0.6
+// rangetouch.js v0.0.5
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -31,7 +31,8 @@
         thumbWidth:     15,
         events: {
             start:      'touchstart',
-            move:       'touchmove'
+            move:       'touchmove',
+            end:        'touchend'
         }
     };
 
@@ -49,9 +50,9 @@
         return Math.max(
             0,
             // Number of digits right of decimal point.
-            (match[1] ? match[1].length : 0)
+            (match[1] ? match[1].length : 0) -
             // Adjust for scientific notation.
-            - (match[2] ? +match[2] : 0)
+            (match[2] ? +match[2] : 0)
         );
     }
 
@@ -100,7 +101,7 @@
     // Update range value based on position
     function setValue(event) {
         // If not enabled, bail
-        if(!settings.enabled || event.target.type !== 'range') {
+        if (!settings.enabled || event.target.type !== 'range') {
             return;
         }
 
@@ -109,12 +110,21 @@
 
         // Set value
         event.target.value = getValue(event);
+
+        // Trigger input event
+        _triggerEvent(event.target, (event.type === settings.events.end ? 'change' : 'input'));
     }
 
     // Event listeners
     function listeners() {
         _on(document.body, settings.events.start, setValue);
         _on(document.body, settings.events.move, setValue);
+        _on(document.body, settings.events.end, setValue);
+    }
+
+    // Trigger event
+    function _triggerEvent(element, eventName, properties) {
+        element.dispatchEvent(new CustomEvent(eventName, properties));
     }
 
     // Expose setup function
@@ -130,6 +140,7 @@
         // Set touchAction to prevent delays
         for (var i = inputs.length - 1; i >= 0; i--) {
             inputs[i].style.touchAction = 'manipulation';
+            inputs[i].style.webkitUserSelect = 'none';
         }
 
         // Listen for events
@@ -142,3 +153,25 @@
         }
     };
 }));
+
+// Custom event polyfill
+// ---------------------------------
+// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
+(function () {
+    'use strict';
+    
+    if (typeof window.CustomEvent === 'function') {
+        return false;
+    }
+
+    function CustomEvent (event, params) {
+        params = params || { bubbles: false, cancelable: false, detail: undefined };
+        var evt = document.createEvent('CustomEvent');
+        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+        return evt;
+    }
+
+    CustomEvent.prototype = window.Event.prototype;
+
+    window.CustomEvent = CustomEvent;
+})();
