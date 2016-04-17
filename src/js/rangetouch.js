@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v0.0.7
+// rangetouch.js v0.0.8
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -80,7 +80,7 @@
             thumbWidth   = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
 
         // Determine left percentage
-        percent = ((100 / clientRect.width) * (touch.pageX - clientRect.left));
+        percent = ((100 / clientRect.width) * (touch.clientX - clientRect.left));
 
         // Don't allow outside bounds
         if (percent < 0) { percent = 0; }
@@ -104,6 +104,8 @@
         if (!settings.enabled || event.target.type !== 'range') {
             return;
         }
+
+        //console.log(event);
 
         // Prevent text highlight on iOS
         event.preventDefault();

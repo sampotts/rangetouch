@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.8
+- Bug fix for zoomed input
+
 ## v0.0.7
 - Triggering `input` and `change` events 
 
