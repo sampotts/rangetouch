@@ -14,8 +14,7 @@
 
 // Buttons
 .btn {
-	padding: (@padding-base / 2) (@padding-base / 1.5);
-
+	padding: (@padding-base / 2);
 	background: #fff;
 	border: 0;
 	box-shadow: 0 1px 1px rgba(0,0,0, .1);
@@ -24,6 +23,7 @@
 	.font-size();
 	color: @gray;
 	text-shadow: none;
+	white-space: nowrap;
 
 	&:hover,
 	&:focus {
@@ -44,8 +44,8 @@
 // Count bubble
 .btn__count {
 	position: relative;
-	margin-left: (@padding-base / 2);
-	padding: (@padding-base / 2);
+	margin-left: (@padding-base / 3);
+	padding: (@padding-base / 2) (@padding-base * .4);
 	min-width: (@padding-base * 1.75);
 	background: #fff;
 	text-shadow: none;
