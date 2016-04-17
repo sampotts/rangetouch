@@ -16,7 +16,7 @@ It will automatically bind to all `<input type="range">` elements, even newlt in
 ### CDN
 You can even load RangeTouch from our CDN if you'd like:
 ```html
-<script src="https://cdn.rangetouch.com/0.0.1/rangetouch.js"></script>
+<script src="https://cdn.rangetouch.com/0.0.3/rangetouch.js"></script>
 ```
 
 ### Node Package Manager (NPM)
