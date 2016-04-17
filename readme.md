@@ -8,7 +8,7 @@ While building [plyr](https://plyr.io) I noticed how bad the experience was tryi
 
 ## Features
 - No setup required, just include the script
-- Less than 700 bytes minified and gzipped
+- Less than 1KB minified and gzipped
 - No dependencies (written in "vanilla" JavaScript)
 
 ## Quick setup
