@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.5
+- Bug fix for breaking other touches
+
 ## v0.0.4
 - Bug fix for thumb width offset
 
