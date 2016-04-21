@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.0.9
+- Added disabled selector
+
 ## v0.0.8
 - Bug fix for zoomed input
 

@@ -15,8 +15,16 @@
                 <p>A super tiny library to make <code>&lt;input type='range'&gt;</code> sliders work better on touch devices</p>
             </header>
             <section class="example">
-                <label for="example" class="sr-only">Example slider</label>
-                <input type="range" id="example">
+                <label for="example0">Enabled <span class="sr-only">example slider</span></label>
+                <div class="example__range">
+                    <input type="range" id="example0">
+                </div>
+            </section>
+            <section class="example">
+                <label for="example1">Disabled <span class="sr-only">example slider</span></label>
+                <div class="example__range">
+                    <input type="range" id="example1" class="rangetouch--disabled">
+                </div>
             </section>
             <aside class="action">
                 <a href="https://github.com/selz/rangetouch" target="_blank" class="btn btn--primary" data-shr-network="github">

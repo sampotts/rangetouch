@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v0.0.8
+// rangetouch.js v0.0.9
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -26,7 +26,8 @@
     var settings = {
         enabled:        true,
         selectors: {
-            range:      '[type="range"]'
+            range:      '[type="range"]',
+            disabled:   'rangetouch--disabled'
         },
         thumbWidth:     15,
         events: {
@@ -36,8 +37,16 @@
         }
     };
 
+    // Check if element is disabled 
+    function isDisabled(element) {
+        if(element instanceof HTMLElement) {
+            return element.classList.contains(settings.selectors.disabled);
+        }
+        return false;
+    }
+
     // Bind an event listener
-    function _on(element, type, listener) {
+    function on(element, type, listener) {
         element.addEventListener(type, listener, false);
     }
 
@@ -101,7 +110,7 @@
     // Update range value based on position
     function setValue(event) {
         // If not enabled, bail
-        if (!settings.enabled || event.target.type !== 'range') {
+        if (!settings.enabled || event.target.type !== 'range' || isDisabled(event.target)) {
             return;
         }
 
@@ -117,14 +126,19 @@
 
     // Event listeners
     function listeners() {
-        _on(document.body, settings.events.start, setValue);
-        _on(document.body, settings.events.move, setValue);
-        _on(document.body, settings.events.end, setValue);
+        on(document.body, settings.events.start, setValue);
+        on(document.body, settings.events.move, setValue);
+        on(document.body, settings.events.end, setValue);
     }
 
     // Trigger event
     function _triggerEvent(element, eventName, properties) {
         element.dispatchEvent(new CustomEvent(eventName, properties));
+    }
+
+    // Get the selector for the range
+    function getSelector() {
+        return [settings.selectors.range, ":not(.", settings.selectors.disabled, ")"].join("");
     }
 
     // Expose setup function
@@ -135,7 +149,7 @@
         }
 
         // Find all inputs
-        var inputs = document.querySelectorAll(settings.selectors.range);
+        var inputs = document.querySelectorAll(getSelector());
 
         // Set touchAction to prevent delays
         for (var i = inputs.length - 1; i >= 0; i--) {

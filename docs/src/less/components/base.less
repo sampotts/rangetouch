@@ -19,11 +19,7 @@ html {
     font-size: 100%;
 }
 body {
-    display: flex;
-    height: 100%;
-    align-items: center;
-
-    padding: (@padding-base * 3) (@padding-base / 2);
+    padding: (@padding-base * 1.5) (@padding-base / 2) (@padding-base * 3);
     background: @body-background;
 
     font-family: @font-stack;
@@ -32,11 +28,22 @@ body {
     color: @text-color;
     .font-smoothing(on);
     text-shadow: 0 1px 1px rgba(0,0,0, .1);
+
+    @media only screen 
+    and (min-width : @screen-sm) {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding-top: (@padding-base * 3);
+    }
 }
 
-header,
-section {
-    margin-bottom: @padding-base;
+section,
+.action {
+    margin-top: @padding-base;
+}
+section + section {
+    margin-top: (@padding-base / 2);
 }
 
 // Header

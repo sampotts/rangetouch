@@ -3,6 +3,7 @@
 // ==========================================================================
 
 // Colors
+// ---------------------------------------
 @blue:                                 #0081C5;
 @green:                                #00BD9C;
 @gray-dark:                            #343f4a;
@@ -14,17 +15,21 @@
 @off-white:                            #f7f8fa;
 
 // Brands
+// ---------------------------------------
 @color-twitter:                        #4BAAF4;
 
 // Set brand colors
+// ---------------------------------------
 @brand-primary:                        @blue;
 @brand-secondary:                      @green;
 
 // Base
+// ---------------------------------------
 @body-background:                      linear-gradient(to left top, @brand-secondary, @brand-primary);
 @text-color:                           #fff;
 
 // Type
+// ---------------------------------------
 @font-stack:                           "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-size-base:                       16;
 @font-size-large:                      ceil(@font-size-base * 1.2);
@@ -37,26 +42,40 @@
 @line-height-computed:                 (@line-height * @font-size-base);
 
 // Radii
+// ---------------------------------------
 @border-radius-base:                   4px;
 
-// Elements
+// Links
+// ---------------------------------------
 @link-color:                           @brand-primary;
 @link-color-hover:                     @brand-secondary;
+
+// Padding
+// ---------------------------------------
 @padding-base:                         30px;
+
+// Focus
+// ---------------------------------------
 @focus-outline-color:                  @gray-dark;
+
+// Arrows
+// ---------------------------------------
 @arrow-size:                           8px;
 
 // Icons
+// ---------------------------------------
 @icon-size:                            18px;
 
 // Range
-@range-track-height:                   10px;
-@range-track-bg:                       fade(@gray-dark, 50%);
-@range-thumb-height:                   floor(@range-track-height * 2);
-@range-thumb-width:                    floor(@range-track-height * 2);
-@range-thumb-bg:                       @body-background;
-@range-thumb-border:                   3px solid #fff;
+// ---------------------------------------
+@range-track-height:                    10px;
+@range-track-bg:                        fade(@gray-dark, 50%);
+@range-thumb-height:                    floor(@range-track-height * 2);
+@range-thumb-width:                     floor(@range-track-height * 2);
+@range-thumb-bg:                        @body-background;
+@range-thumb-border:                    3px solid #fff;
 
 // Breakpoints
-@screen-sm:                            480px;
-@screen-md:                            768px;
+// ---------------------------------------
+@screen-sm:                             480px;
+@screen-md:                             768px;
