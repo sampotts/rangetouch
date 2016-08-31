@@ -68,7 +68,7 @@
     // Round to the nearest step
     function roundToStep(number, step) {
         if(step < 1) {
-            var places = getDecimalPlaces(parseInt(step));
+            var places = getDecimalPlaces(step);
             return parseFloat(number.toFixed(places));
         }
         return (Math.round(number / step) * step);
