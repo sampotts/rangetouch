@@ -62,8 +62,13 @@ If you find anything weird with RangeTouch, please let us know using the GitHub 
 RangeTouch is developed by [@sam_potts](https://twitter.com/sam_potts) / [sampotts.me](http://sampotts.me)
 
 ## Donate
-RangeTouch costs money to run, not my time - I donate that for free but domains, CDN hosting and more. Any help is appreciated...
+RangeTouch costs money to run, not my time - I donate that for free but domains, hosting and more. Any help is appreciated...
 [Donate to support RangeTouch](https://www.paypal.me/pottsy/20usd)
+
+## Thanks
+[![Fastly](https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png)](https://www.fastly.com/)
+
+Thanks to [Fastly](https://www.fastly.com/) for providing the CDN services. 
 
 ## Copyright and License
 [The MIT license](license.md).
