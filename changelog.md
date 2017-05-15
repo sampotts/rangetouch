@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.0.1
+- Clean up
+
+## v1.0.0
+- Repo move and release
+
 ## v0.0.9
 - Added disabled selector
 
@@ -7,7 +13,7 @@
 - Bug fix for zoomed input
 
 ## v0.0.7
-- Triggering `input` and `change` events 
+- Triggering `input` and `change` events
 
 ## v0.0.6
 - Bug fix for min attrubute

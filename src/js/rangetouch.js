@@ -1,11 +1,11 @@
 // ==========================================================================
-// rangetouch.js v0.0.9
+// rangetouch.js v1.0.2
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
 // ==========================================================================
 
-;(function(root, factory) {
+(function(root, factory) {
     'use strict';
     /*global define,module*/
 
@@ -14,7 +14,9 @@
         module.exports = factory(root, document);
     } else if (typeof define === 'function' && define.amd) {
         // AMD
-        define(null, function() { factory(root, document); });
+        define(null, function() {
+            factory(root, document);
+        });
     } else {
         // Browser globals (root is window)
         root.rangetouch = factory(root, document);
@@ -24,22 +26,22 @@
 
     // Default config
     var settings = {
-        enabled:        true,
+        enabled: true,
         selectors: {
-            range:      '[type="range"]',
-            disabled:   'rangetouch--disabled'
+            range: '[type="range"]',
+            disabled: 'rangetouch--disabled'
         },
-        thumbWidth:     15,
+        thumbWidth: 15,
         events: {
-            start:      'touchstart',
-            move:       'touchmove',
-            end:        'touchend'
+            start: 'touchstart',
+            move: 'touchmove',
+            end: 'touchend'
         }
     };
 
-    // Check if element is disabled 
+    // Check if element is disabled
     function isDisabled(element) {
-        if(element instanceof HTMLElement) {
+        if (element instanceof HTMLElement) {
             return element.classList.contains(settings.selectors.disabled);
         }
         return false;
@@ -54,7 +56,9 @@
     function getDecimalPlaces(value) {
         var match = ('' + value).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
 
-        if (!match) { return 0; }
+        if (!match) {
+            return 0;
+        }
 
         return Math.max(
             0,
@@ -67,7 +71,7 @@
 
     // Round to the nearest step
     function roundToStep(number, step) {
-        if(step < 1) {
+        if (step < 1) {
             var places = getDecimalPlaces(step);
             return parseFloat(number.toFixed(places));
         }
@@ -76,37 +80,39 @@
 
     // Get the value based on touch position
     function getValue(event) {
-        var input   = event.target,
-            touch   = event.changedTouches[0],
-            min     = parseFloat(input.getAttribute('min')) || 0,
-            max     = parseFloat(input.getAttribute('max')) || 100,
-            step    = parseFloat(input.getAttribute('step')) || 1,
-            delta   = max - min;
+        var input = event.target;
+        var touch = event.changedTouches[0];
+        var min = parseFloat(input.getAttribute('min')) || 0;
+        var max = parseFloat(input.getAttribute('max')) || 100;
+        var step = parseFloat(input.getAttribute('step')) || 1;
+        var delta = max - min;
 
         // Calculate percentage
-        var percent,
-            clientRect   = input.getBoundingClientRect(),
-            thumbWidth   = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
+        var percent;
+        var clientRect = input.getBoundingClientRect();
+        var thumbWidth = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
 
         // Determine left percentage
         percent = ((100 / clientRect.width) * (touch.clientX - clientRect.left));
 
         // Don't allow outside bounds
-        if (percent < 0) { percent = 0; }
-        else if (percent > 100) { percent = 100; }
-
-        // Factor in the thumb offset 
-        if(percent < 50) {
-            percent -= ((100 - (percent * 2)) * thumbWidth);
+        if (percent < 0) {
+            percent = 0;
+        } else if (percent > 100) {
+            percent = 100;
         }
-        else if(percent > 50) {
+
+        // Factor in the thumb offset
+        if (percent < 50) {
+            percent -= ((100 - (percent * 2)) * thumbWidth);
+        } else if (percent > 50) {
             percent += (((percent - 50) * 2) * thumbWidth);
         }
 
         // Find the closest step to the mouse position
         return min + roundToStep(delta * (percent / 100), step);
     }
-    
+
     // Update range value based on position
     function setValue(event) {
         // If not enabled, bail
@@ -171,15 +177,19 @@
 // Custom event polyfill
 // ---------------------------------
 // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-(function () {
+(function() {
     'use strict';
-    
+
     if (typeof window.CustomEvent === 'function') {
         return false;
     }
 
-    function CustomEvent (event, params) {
-        params = params || { bubbles: false, cancelable: false, detail: undefined };
+    function CustomEvent(event, params) {
+        params = params || {
+            bubbles: false,
+            cancelable: false,
+            detail: undefined
+        };
         var evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
