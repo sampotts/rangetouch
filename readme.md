@@ -32,8 +32,6 @@ You can load RangeTouch from our CDN (backed by the awesome [Fastly](https://www
 ### Node / NPM
 [![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch)
 
-Using NPM, you can grab RangeTouch:
-
 ```bash
 npm install rangetouch
 ```
@@ -43,8 +41,6 @@ npm install rangetouch
 ### Bower
 
 [![Bower version](https://badge.fury.io/bo/rangetouch.svg)](https://badge.fury.io/bo/rangetouch)
-
-If bower is your thang, you can grab RangeTouch using:
 
 ```bash
 bower install rangetouch
