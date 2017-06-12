@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.3
+- Fixed error if no `<input type="range">` found
+- CustomEvent polyfill no longer effects the global scope
+- AddCSS option to set whether to add helpful CSS to the page
+
+## v1.0.2
+- More clean up
+
 ## v1.0.1
 - Clean up
 
