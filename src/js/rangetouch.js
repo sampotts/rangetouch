@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v1.0.3
+// rangetouch.js v1.0.4
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -47,22 +47,11 @@
             return;
         }
 
-        // Build selector
-        var selector = getSelector();
-
-        // Find all inputs
-        var inputs = document.querySelectorAll(selector);
-
-        // Bail if nothing to setup
-        if (!inputs.length) {
-            return;
-        }
-
         // Add useful CSS
         if (settings.addCSS) {
             var stylesheets = document.styleSheets;
             var stylesheet = stylesheets.length ? stylesheets[0] : createStyleSheet();
-            stylesheet.insertRule(selector + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }', 0);
+            stylesheet.insertRule(getSelector() + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }', 0);
         }
 
         // Listen for events
@@ -129,10 +118,10 @@
     // Check if element is disabled
     function isDisabled(element) {
         if (element instanceof HTMLElement) {
-            return element.classList.contains(settings.selectors.disabled);
+            return element.matches(settings.selectors.disabled) || element.disabled;
         }
 
-        return false;
+        return true;
     }
 
     // Bind an event listener

@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.4
+- Fixed bug introduced in v1.0.3 with selector for disabled elements
+- No long require the upfront check for elements on the page given we just listen to events
+
 ## v1.0.3
 - Fixed error if no `<input type="range">` found
 - CustomEvent polyfill no longer effects the global scope
