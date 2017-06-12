@@ -18,7 +18,7 @@ To use RangeTouch, you just need to add `rangetouch.js` (either from the `/dist`
 ```html
 <script src="/path/to/rangetouch.js"></script>
 ```
-It will automatically bind to all `<input type="range">` elements, even newlt injected ones. 
+It will automatically bind to all `<input type="range">` elements, even newlt injected ones.
 
 ### CDN
 You can even load RangeTouch from our CDN if you'd like:
@@ -27,7 +27,7 @@ You can even load RangeTouch from our CDN if you'd like:
 ```
 
 ### Node Package Manager (NPM)
-[![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch) 
+[![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch)
 
 Using NPM, you can grab RangeTouch:
 ```
@@ -48,9 +48,11 @@ More info on setting up dependencies can be found in the [Bower Docs](http://bow
 
 ## Configuration
 If you're customizing your range inputs (easily done - see the demo for an example) and you change the size of the thumb handle, you should specify (in pixels) this after including the script:
+
 ```javascript
 window.rangetouch.set("thumbWidth", 15);
 ```
+
 This value is used as part of the calculation to determine the value the users selects when touching the range track. Unfortunately as JavaScript can't access the shadow DOM, this value can't be automatically determined. I would recommend customisation (and setting the size of the thumb) given all OS and browser combinations seem to render the control differently (as per usual).
 
 If you want to disable RangeTouch for a particular input, add the `rangetouch--disabled` class name to the element.
@@ -68,7 +70,7 @@ RangeTouch costs money to run, not my time - I donate that for free but domains,
 ## Thanks
 [![Fastly](https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png)](https://www.fastly.com/)
 
-Thanks to [Fastly](https://www.fastly.com/) for providing the CDN services. 
+Thanks to [Fastly](https://www.fastly.com/) for providing the CDN services.
 
 ## Copyright and License
 [The MIT license](license.md).

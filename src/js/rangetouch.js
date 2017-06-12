@@ -27,11 +27,12 @@
     // Default config
     var settings = {
         enabled: true,
+        addCSS: true,
+        thumbWidth: 15,
         selectors: {
             range: '[type="range"]',
-            disabled: 'rangetouch--disabled'
+            disabled: '.rangetouch--disabled'
         },
-        thumbWidth: 15,
         events: {
             start: 'touchstart',
             move: 'touchmove',
@@ -39,11 +40,98 @@
         }
     };
 
+    // Setup
+    function setup() {
+        // Bail if not a touch enabled device
+        if (!('ontouchstart' in document.documentElement)) {
+            return;
+        }
+
+        // Build selector
+        var selector = getSelector();
+
+        // Find all inputs
+        var inputs = document.querySelectorAll(selector);
+
+        // Bail if nothing to setup
+        if (!inputs.length) {
+            return;
+        }
+
+        // Add useful CSS
+        if (settings.addCSS) {
+            var stylesheets = document.styleSheets;
+            var stylesheet = stylesheets.length ? stylesheets[0] : createStyleSheet();
+            stylesheet.insertRule(selector + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }', 0);
+        }
+
+        // Listen for events
+        listeners();
+    }
+
+    // Event listeners
+    function listeners() {
+        on(document.body, settings.events.start, set);
+        on(document.body, settings.events.move, set);
+        on(document.body, settings.events.end, set);
+    }
+
+    // Create a CSS stylesheet
+    function createStyleSheet() {
+        var style = document.createElement("style");
+        style.appendChild(document.createTextNode(""));
+        document.head.appendChild(style);
+        return style.sheet;
+    }
+
+    // Trigger event
+    function event(element, type, properties) {
+        // Bail if no element
+        if (!element || !type) {
+            return;
+        }
+
+        // Create CustomEvent constructor
+        var CustomEvent;
+        if (typeof window.CustomEvent === 'function') {
+            CustomEvent = window.CustomEvent;
+        } else {
+            // Polyfill CustomEvent
+            // https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+            CustomEvent = function(event, params) {
+                params = params || {
+                    bubbles: false,
+                    cancelable: false,
+                    detail: undefined
+                };
+                var custom = document.createEvent('CustomEvent');
+                custom.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
+                return custom;
+            };
+            CustomEvent.prototype = window.Event.prototype;
+        }
+
+        // Create and dispatch the event
+        var event = new CustomEvent(type, {
+            bubbles: true,
+            detail: properties
+        });
+
+        // Dispatch the event
+        element.dispatchEvent(event);
+    }
+
+    // Get the selector for the range
+    function getSelector() {
+        return [settings.selectors.range, ":not(", settings.selectors.disabled, ")"].join("");
+    }
+
     // Check if element is disabled
     function isDisabled(element) {
         if (element instanceof HTMLElement) {
             return element.classList.contains(settings.selectors.disabled);
         }
+
         return false;
     }
 
@@ -70,7 +158,7 @@
     }
 
     // Round to the nearest step
-    function roundToStep(number, step) {
+    function round(number, step) {
         if (step < 1) {
             var places = getDecimalPlaces(step);
             return parseFloat(number.toFixed(places));
@@ -79,7 +167,7 @@
     }
 
     // Get the value based on touch position
-    function getValue(event) {
+    function get(event) {
         var input = event.target;
         var touch = event.changedTouches[0];
         var min = parseFloat(input.getAttribute('min')) || 0;
@@ -110,11 +198,11 @@
         }
 
         // Find the closest step to the mouse position
-        return min + roundToStep(delta * (percent / 100), step);
+        return min + round(delta * (percent / 100), step);
     }
 
     // Update range value based on position
-    function setValue(event) {
+    function set(event) {
         // If not enabled, bail
         if (!settings.enabled || event.target.type !== 'range' || isDisabled(event.target)) {
             return;
@@ -124,48 +212,14 @@
         event.preventDefault();
 
         // Set value
-        event.target.value = getValue(event);
+        event.target.value = get(event);
 
         // Trigger input event
-        _triggerEvent(event.target, (event.type === settings.events.end ? 'change' : 'input'));
+        event(event.target, (event.type === settings.events.end ? 'change' : 'input'));
     }
 
-    // Event listeners
-    function listeners() {
-        on(document.body, settings.events.start, setValue);
-        on(document.body, settings.events.move, setValue);
-        on(document.body, settings.events.end, setValue);
-    }
-
-    // Trigger event
-    function _triggerEvent(element, eventName, properties) {
-        element.dispatchEvent(new CustomEvent(eventName, properties));
-    }
-
-    // Get the selector for the range
-    function getSelector() {
-        return [settings.selectors.range, ":not(.", settings.selectors.disabled, ")"].join("");
-    }
-
-    // Expose setup function
-    (function() {
-        // Bail if not a touch device
-        if (!('ontouchstart' in document.documentElement)) {
-            return;
-        }
-
-        // Find all inputs
-        var inputs = document.querySelectorAll(getSelector());
-
-        // Set touchAction to prevent delays
-        for (var i = inputs.length - 1; i >= 0; i--) {
-            inputs[i].style.touchAction = 'manipulation';
-            inputs[i].style.webkitUserSelect = 'none';
-        }
-
-        // Listen for events
-        listeners();
-    })();
+    // Run setup automatically
+    setup();
 
     return {
         set: function(setting, value) {
@@ -173,29 +227,3 @@
         }
     };
 }));
-
-// Custom event polyfill
-// ---------------------------------
-// https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent
-(function() {
-    'use strict';
-
-    if (typeof window.CustomEvent === 'function') {
-        return false;
-    }
-
-    function CustomEvent(event, params) {
-        params = params || {
-            bubbles: false,
-            cancelable: false,
-            detail: undefined
-        };
-        var evt = document.createEvent('CustomEvent');
-        evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-        return evt;
-    }
-
-    CustomEvent.prototype = window.Event.prototype;
-
-    window.CustomEvent = CustomEvent;
-})();
