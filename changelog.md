@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.5
+- Fixed issue with variable naming
+
 ## v1.0.4
 - Fixed bug introduced in v1.0.3 with selector for disabled elements
 - No long require the upfront check for elements on the page given we just listen to events

@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v1.0.4
+// rangetouch.js v1.0.5
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -74,7 +74,7 @@
     }
 
     // Trigger event
-    function event(element, type, properties) {
+    function trigger(element, type, properties) {
         // Bail if no element
         if (!element || !type) {
             return;
@@ -204,7 +204,7 @@
         event.target.value = get(event);
 
         // Trigger input event
-        event(event.target, (event.type === settings.events.end ? 'change' : 'input'));
+        trigger(event.target, (event.type === settings.events.end ? 'change' : 'input'));
     }
 
     // Run setup automatically
