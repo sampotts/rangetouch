@@ -49,8 +49,7 @@
 
         // Add useful CSS
         if (settings.addCSS) {
-            var stylesheets = document.styleSheets;
-            var stylesheet = stylesheets.length ? stylesheets[0] : createStyleSheet();
+            var stylesheet = createStyleSheet();
             stylesheet.insertRule(getSelector() + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }', 0);
         }
 
