@@ -3,25 +3,9 @@
     "version": "1.0.5",
     "description": "A super tiny library to make input type='range' sliders work better on touch devices",
     "homepage": "https://rangetouch.com",
+    "author": "Sam Potts <sam@potts.es>",
+    "license": "MIT",
     "main": "src/js/rangetouch.js",
-    "dependencies": {},
-    "devDependencies": {
-        "gulp": "^3.9.0",
-        "gulp-autoprefixer": "^4.0.0",
-        "gulp-clean-css": "^3.2.0",
-        "gulp-concat": "^2.6.1",
-        "gulp-less": "^3.3.0",
-        "gulp-open": "^2.0.0",
-        "gulp-rename": "^1.2.2",
-        "gulp-replace": "^0.5.4",
-        "gulp-s3": "^0.11.0",
-        "gulp-size": "^2.1.0",
-        "gulp-svgmin": "^1.0.0",
-        "gulp-svgstore": "^6.1.0",
-        "gulp-uglify": "^2.1.2",
-        "gulp-util": "^3.0.8",
-        "run-sequence": "^1.2.2"
-    },
     "keywords": [
         "range",
         "slider",
@@ -31,7 +15,6 @@
         "type": "git",
         "url": "git://github.com/sampotts/rangetouch.git"
     },
-    "license": "MIT",
     "bugs": {
         "url": "https://github.com/sampotts/rangetouch/issues"
     },
@@ -41,5 +24,43 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "author": "Sam Potts <sam@potts.es>"
+    "dependencies": {},
+    "devDependencies": {
+        "@babel/core": "^7.1.5",
+        "@babel/preset-env": "^7.1.5",
+        "babel-eslint": "^10.0.1",
+        "babel-preset-minify": "^0.5.0",
+        "eslint": "^5.8.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^3.1.0",
+        "eslint-plugin-import": "^2.14.0",
+        "gulp": "^3.9.1",
+        "gulp-autoprefixer": "^6.0.0",
+        "gulp-better-rollup": "^3.4.0",
+        "gulp-clean-css": "^3.10.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-less": "^4.0.1",
+        "gulp-open": "^3.0.1",
+        "gulp-rename": "^1.4.0",
+        "gulp-replace": "^1.0.0",
+        "gulp-s3": "^0.11.0",
+        "gulp-size": "^3.0.0",
+        "gulp-sourcemaps": "^2.6.4",
+        "gulp-svgmin": "^2.1.0",
+        "gulp-svgstore": "^7.0.0",
+        "gulp-uglify-es": "^1.0.4",
+        "gulp-util": "^3.0.8",
+        "prettier-eslint": "^8.8.2",
+        "prettier-stylelint": "^0.4.2",
+        "rollup-plugin-babel": "^4.0.3",
+        "rollup-plugin-commonjs": "^9.2.0",
+        "rollup-plugin-node-resolve": "^3.4.0",
+        "rollup-plugin-replace": "^2.1.0",
+        "rollup-plugin-uglify": "^6.0.0",
+        "run-sequence": "^2.2.1",
+        "stylelint": "^9.7.1",
+        "stylelint-config-prettier": "^4.0.0",
+        "stylelint-config-recommended": "^2.1.0",
+        "stylelint-order": "^1.0.0"
+    }
 }
