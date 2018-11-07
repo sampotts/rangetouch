@@ -1,6 +1,6 @@
 {
     "name": "rangetouch",
-    "version": "1.0.5",
+    "version": "2.0.0",
     "description": "A super tiny library to make input type='range' sliders work better on touch devices",
     "homepage": "https://rangetouch.com",
     "author": "Sam Potts <sam@potts.es>",
