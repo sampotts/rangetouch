@@ -5,11 +5,17 @@
 // License: The MIT License (MIT)
 // ==========================================================================
 
-import { addCSS, matches } from './css';
-import trigger from './events';
-import { round } from './numbers';
+import { addCSS, matches } from './utils/css';
+import trigger from './utils/events';
+import is from './utils/is';
+import { round } from './utils/numbers';
 
 class RangeTouch {
+    /**
+     * Setup a new instance
+     * @param {*} selector
+     * @param {Object} options
+     */
     constructor(selector = '[type="range"]', options = {}) {
         this.selector = selector;
         this.elements = document.querySelectorAll(selector);
@@ -33,22 +39,18 @@ class RangeTouch {
 
         // Add useful CSS
         if (this.config.addCSS) {
-            addCSS(
-                this.selector,
-                'user-select: none; -webkit-user-select: none; touch-action: manipulation',
-            );
+            addCSS(this.selector, 'user-select: none; -webkit-user-select: none; touch-action: manipulation');
         }
 
         // Listen for events
-        const events = ['touchstart', 'touchmove', 'touchend'];
-
-        events.forEach(type => {
-            document.body.addEventListener(
+        ['touchstart', 'touchmove', 'touchend'].forEach(type => {
+            document.addEventListener(
                 type,
                 event => {
                     if (!matches(event.target, this.selector)) {
                         return;
                     }
+
                     this.set(event);
                 },
                 false,
@@ -56,8 +58,15 @@ class RangeTouch {
         });
     }
 
-    // Get the value based on touch position
+    /**
+     * Get the value based on touch position
+     * @param {Event} event
+     */
     get(event) {
+        if (!is.event(event)) {
+            return null;
+        }
+
         const input = event.target;
         const touch = event.changedTouches[0];
         const min = parseFloat(input.getAttribute('min')) || 0;
@@ -68,8 +77,7 @@ class RangeTouch {
         // Calculate percentage
         let percent;
         const clientRect = input.getBoundingClientRect();
-        const thumbWidth =
-            ((100 / clientRect.width) * (this.config.thumbWidth / 2)) / 100;
+        const thumbWidth = ((100 / clientRect.width) * (this.config.thumbWidth / 2)) / 100;
 
         // Determine left percentage
         percent = (100 / clientRect.width) * (touch.clientX - clientRect.left);
@@ -92,9 +100,12 @@ class RangeTouch {
         return min + round(delta * (percent / 100), step);
     }
 
-    // Update range value based on position
+    /**
+     * Update range value based on position
+     * @param {Event} event
+     */
     set(event) {
-        if (event.target.disabled) {
+        if (!is.event(event) || event.target.disabled) {
             return;
         }
 

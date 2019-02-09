@@ -5,7 +5,7 @@
 import RangeTouch from '../../../src/js/rangetouch';
 
 document.addEventListener('DOMContentLoaded', () => {
-    function loadSprite(url) {
+    const loadSprite = url => {
         const xhr = new XMLHttpRequest();
         const { body } = document;
 
@@ -27,11 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         xhr.send();
-    }
-
-    window.loadSprites = sprites => {
-        sprites.forEach(loadSprite);
     };
+
+    ['dist/docs.svg'].forEach(loadSprite);
 
     // Setup shr
     window.shr.setup({
@@ -41,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Set range thumb size
-    // window.rangetouch.set('thumbWidth', 20);
+    window.rangetouch = new RangeTouch('#example', { thumbWidth: 20 });
 
-    const rangetouch = new RangeTouch('#example', { thumbWidth: 20 });
+    document.body.addEventListener('click', console.log, false);
 });

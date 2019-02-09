@@ -1,5 +1,7 @@
 # RangeTouch
 
+[![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch)
+
 A super tiny library to make `<input type="range">` sliders work better on touch devices.
 
 [Donate to support RangeTouch](#donate)
@@ -12,53 +14,42 @@ While building [plyr](https://plyr.io) I noticed how bad the experience was tryi
 
 ## Features
 
--   No setup required, just include the script
 -   Less than 1KB minified and gzipped
 -   No dependencies (written in "vanilla" JavaScript)
+-   Uses event delgation so no need to re-run after DOM manipulation
 
 ## Quick setup
 
-To use RangeTouch, you just need to add `rangetouch.js` (either from the `/dist` (minified) or `/src/js` (unminified) folders). Ideally before the closing `</body>` tag:
+### 1. Include the lib
 
-```html
-<script src="/path/to/rangetouch.js" async></script>
-```
-
-It will automatically bind to all `<input type="range">` elements, even newly injected ones as it uses event delegation.
-
-### CDN
-
-You can load RangeTouch from our CDN (backed by the awesome [Fastly](https://www.fastly.com/)) if you'd like:
-
-```html
-<script src="https://cdn.rangetouch.com/1.0.5/rangetouch.js" async></script>
-```
-
-### Node / NPM
-
-[![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch)
-
-```bash
-npm install rangetouch
-```
-
-[https://www.npmjs.com/package/rangetouch](https://www.npmjs.com/package/rangetouch)
-
-## Configuration
-
-If you're customizing your range inputs (easily done - see the demo for an example) and you change the size of the thumb handle, you should specify (in pixels) this after including the script:
+Either use the ES6 module:
 
 ```javascript
-window.rangetouch.set('thumbWidth', 15);
+import RangeTouch from 'rangetouch`;
 ```
 
-This value is used as part of the calculation to determine the value the users selects when touching the range track. Unfortunately as JavaScript can't access the shadow DOM, this value can't be automatically determined. I would recommend customisation (and setting the size of the thumb) given all OS and browser combinations seem to render the control differently (as per usual).
+...or include the script:
 
-If you want to disable RangeTouch for a particular input, add the `rangetouch--disabled` class name to the element.
+```html
+<script src="https://rangetouch.com/1.0.6/rangetouch.js"></script>
+```
+
+### 2. Create an instance
+
+```javascript
+const range = new RangeTouch('input[type="range"]', { ...options });
+```
+
+## Options
+
+| Name       | Type    | Default | Description                                                                                                                                                                                                                                                                                                                                                                    |
+| ---------- | ------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| addCSS     | Boolean | `true`  | Whether to inject CSS to improve the usability of the inputs. It's recommended you add this yourself if you don't want RangeTouch to take care of it.                                                                                                                                                                                                                          |
+| thumbWidth | Integer | `15`    | This value is used as part of the calculation to determine the value the users selects when touching the range track. Unfortunately as JavaScript can't access the shadow DOM, this value can't be automatically determined. I would recommend customisation (and setting the size of the thumb) given all OS and browser combinations seem to render the control differently. |
 
 ## Issues
 
-If you find anything weird with RangeTouch, please let us know using the GitHub issues tracker.
+If you find anything weird with RangeTouch, please let us know using the [GitHub issues tracker](https://github.com/sampotts/rangetouch/issues) and be descriptive on how to reproduce, expected result, the browser (and version) used, etc.
 
 ## Author
 
@@ -66,12 +57,12 @@ RangeTouch is developed by [@sam_potts](https://twitter.com/sam_potts) / [sampot
 
 ## Donate
 
-RangeTouch costs money to run, not my time - I donate that for free but domains, hosting and more. Any help is appreciated...
+RangeTouch costs money to run for domains, hosting and more. Any help is appreciated...
 [Donate to support RangeTouch](https://www.paypal.me/pottsy/20usd)
 
 ## Thanks
 
-[![Fastly](https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png)](https://www.fastly.com/)
+[![Fastly](https://cdn.plyr.io/static/fastly-logo.png)](https://www.fastly.com/)
 
 Thanks to [Fastly](https://www.fastly.com/) for providing the CDN services.
 
