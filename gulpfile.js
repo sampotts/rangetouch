@@ -245,9 +245,10 @@ const headers = {
     },
 };
 
-const regex = '(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)';
-const cdnpath = new RegExp(`${deploy.cdn.domain}/${regex}`, 'gi');
+const regex =
+    '(?:0|[1-9][0-9]*)\\.(?:0|[1-9][0-9]*).(?:0|[1-9][0-9]*)(?:-[\\da-z\\-]+(?:.[\\da-z\\-]+)*)?(?:\\+[\\da-z\\-]+(?:.[\\da-z\\-]+)*)?';
 const semver = new RegExp(`v${regex}`, 'gi');
+const cdnpath = new RegExp(`${deploy.cdn.domain}/${regex}`, 'gi');
 const localpath = new RegExp('(../)?dist', 'gi');
 
 // Publish version to CDN bucket
@@ -347,4 +348,4 @@ gulp.task('open', () => {
 });
 
 // Do everything
-gulp.task('publish', gulp.series(gulp.parallel(...tasks.js, ...tasks.less, ...tasks.sprite), 'cdn', 'docs'));
+gulp.task('deploy', gulp.series(gulp.parallel(...tasks.js, ...tasks.less, ...tasks.sprite), 'cdn', 'docs'));
