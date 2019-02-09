@@ -40,6 +40,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Set range thumb size
     window.rangetouch = new RangeTouch('#example', { thumbWidth: 20 });
-
-    document.body.addEventListener('click', console.log, false);
 });

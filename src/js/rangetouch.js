@@ -18,12 +18,10 @@ class RangeTouch {
      */
     constructor(selector = '[type="range"]', options = {}) {
         this.selector = selector;
-        this.elements = document.querySelectorAll(selector);
         this.config = Object.assign(
             {
                 addCSS: true,
                 thumbWidth: 15,
-                watch: true,
             },
             options,
         );
