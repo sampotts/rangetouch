@@ -34,7 +34,7 @@ You can load RangeTouch from our CDN (backed by the awesome [Fastly](https://www
 <script src="https://rangetouch.com/1.0.6/rangetouch.js"></script>
 ```
 
-### Node / NPM
+### npm
 
 [![npm version](https://badge.fury.io/js/rangetouch.svg)](https://badge.fury.io/js/rangetouch)
 
@@ -43,18 +43,6 @@ npm install rangetouch
 ```
 
 [https://www.npmjs.com/package/rangetouch](https://www.npmjs.com/package/rangetouch)
-
-### Bower
-
-[![Bower version](https://badge.fury.io/bo/rangetouch.svg)](https://badge.fury.io/bo/rangetouch)
-
-```bash
-bower install rangetouch
-```
-
-[http://bower.io/search/?q=rangetouch](http://bower.io/search/?q=rangetouch)
-
-More info on setting up dependencies can be found in the [Bower Docs](http://bower.io/docs/creating-packages/#maintaining-dependencies)
 
 ## Configuration
 
