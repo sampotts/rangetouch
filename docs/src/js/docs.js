@@ -39,5 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Set range thumb size
-    window.rangetouch = new RangeTouch('#example', { thumbWidth: 20 });
+    RangeTouch.setup('.js-example', { thumbWidth: 20 });
+
+    // Test MutationObserver
+    /* setTimeout(() => {
+        const input = document.createElement('input');
+        input.type = 'range';
+        input.className = 'js-example';
+        document.getElementById('test').appendChild(input);
+    }, 2000); */
 });

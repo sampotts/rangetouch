@@ -1,58 +1,134 @@
 // ==========================================================================
-// rangetouch.js v2.0.0
+// rangetouch.js v2.0.0-beta.1
 // Making <input type="range"> work on touch devices
 // https://github.com/sampotts/rangetouch
 // License: The MIT License (MIT)
 // ==========================================================================
 
-import { addCSS, matches } from './utils/css';
-import trigger from './utils/events';
+import { matches } from './utils/css';
+import { trigger } from './utils/events';
 import is from './utils/is';
 import { round } from './utils/numbers';
+
+const defaults = {
+    addCSS: true, // Add CSS to the element to improve usability (required here or in your CSS!)
+    thumbWidth: 15, // The width of the thumb handle
+    watch: true, // Watch for new elements that match a string target
+};
 
 class RangeTouch {
     /**
      * Setup a new instance
-     * @param {*} selector
+     * @param {String|Element} target
      * @param {Object} options
      */
-    constructor(selector = '[type="range"]', options = {}) {
-        this.selector = selector;
-        this.config = Object.assign(
-            {
-                addCSS: true,
-                thumbWidth: 15,
-            },
-            options,
-        );
+    constructor(target, options) {
+        if (is.element(target)) {
+            // An Element is passed, use it directly
+            this.element = target;
+        } else if (is.string(target)) {
+            // A CSS Selector is passed, fetch it from the DOM
+            this.element = document.querySelector(target);
+        }
 
-        this.setup();
+        if (!is.element(this.element) || !is.empty(this.element.rangeTouch)) {
+            return;
+        }
+
+        this.config = Object.assign({}, defaults, options);
+
+        this.init();
     }
 
-    setup() {
+    static get enabled() {
+        return 'ontouchstart' in document.documentElement;
+    }
+
+    /**
+     * Setup multiple instances
+     * @param {String|Element|NodeList|Array} target
+     * @param {Object} options
+     */
+    static setup(target, options = {}) {
+        let targets = null;
+
+        if (is.empty(target) || is.string(target)) {
+            targets = Array.from(document.querySelectorAll(is.string(target) ? target : 'input[type="range"]'));
+        } else if (is.element(target)) {
+            targets = [target];
+        } else if (is.nodeList(target)) {
+            targets = Array.from(target);
+        } else if (is.array(target)) {
+            targets = target.filter(is.element);
+        }
+
+        if (is.empty(targets)) {
+            return null;
+        }
+
+        const config = Object.assign({}, defaults, options);
+
+        if (is.string(target) && config.watch) {
+            // Create an observer instance
+            const observer = new MutationObserver(mutations => {
+                Array.from(mutations).forEach(mutation => {
+                    Array.from(mutation.addedNodes).forEach(node => {
+                        if (!is.element(node) || !matches(node, target)) {
+                            return;
+                        }
+
+                        // eslint-disable-next-line no-unused-vars
+                        const range = new RangeTouch(node, config);
+                    });
+                });
+            });
+
+            // Pass in the target node, as well as the observer options
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+            });
+        }
+
+        return targets.map(t => new RangeTouch(t, options));
+    }
+
+    init() {
         // Bail if not a touch enabled device
-        if (!('ontouchstart' in document.documentElement)) {
+        if (!RangeTouch.enabled) {
             return;
         }
 
         // Add useful CSS
         if (this.config.addCSS) {
-            addCSS(this.selector, 'user-select: none; -webkit-user-select: none; touch-action: manipulation');
+            // TODO: Restore original values on destroy
+            this.element.style.userSelect = 'none';
+            this.element.style.webKitUserSelect = 'none';
+            this.element.style.touchAction = 'manipulation';
         }
+
+        this.listeners(true);
+
+        this.element.rangeTouch = this;
+    }
+
+    destroy() {
+        // Bail if not a touch enabled device
+        if (!RangeTouch.enabled) {
+            return;
+        }
+
+        this.listeners(false);
+
+        this.element.rangeTouch = null;
+    }
+
+    listeners(toggle) {
+        const method = toggle ? 'addEventListener' : 'removeEventListener';
 
         // Listen for events
         ['touchstart', 'touchmove', 'touchend'].forEach(type => {
-            document.addEventListener(
-                type,
-                event => {
-                    if (!matches(event.target, this.selector)) {
-                        return;
-                    }
-
-                    this.set(event);
-                },
-                false,
-            );
+            this.element[method](type, event => this.set(event), false);
         });
     }
 
@@ -61,7 +137,7 @@ class RangeTouch {
      * @param {Event} event
      */
     get(event) {
-        if (!is.event(event)) {
+        if (!RangeTouch.enabled || !is.event(event)) {
             return null;
         }
 
@@ -103,7 +179,7 @@ class RangeTouch {
      * @param {Event} event
      */
     set(event) {
-        if (!is.event(event) || event.target.disabled) {
+        if (!RangeTouch.enabled || !is.event(event) || event.target.disabled) {
             return;
         }
 

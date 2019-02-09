@@ -34,17 +34,15 @@
 
             <div class="section example hidden-no-touch">
                 <label for="example1" class="color-bad">Default <span class="sr-only">example slider</span></label>
-                <div class="example__range">
-                    <input type="range" />
-                </div>
+                <input type="range" id="example1" />
             </div>
 
             <div class="section example hidden-no-touch">
                 <label for="example0" class="color-good">RangeTouch <span class="sr-only">example slider</span></label>
-                <div class="example__range">
-                    <input type="range" id="example" />
-                </div>
+                <input type="range" id="example0" class="js-example" />
             </div>
+
+            <div id="test"></div>
 
             <div class="action">
                 <a
@@ -54,15 +52,17 @@
                     data-shr-network="github"
                 >
                     <svg class="icon">
-                        <use xlink:href="#icon-github"></use></svg
-                    >Download on GitHub
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                    Download on GitHub
                 </a>
             </div>
         </main>
         <footer>
             <svg class="icon color--twitter">
-                <use xlink:href="#icon-twitter" /></svg
-            >If you like RangeTouch,
+                <use xlink:href="#icon-twitter" />
+            </svg>
+            If you like RangeTouch,
             <a
                 href="https://twitter.com/intent/tweet?text=RangeTouch+-+a+super+tiny+library+to+make+input+type=range+sliders+work+better+on+touch+devices&url=http%3A%2F%2Frangetouch.com&via=Sam_Potts"
                 target="_blank"
@@ -70,9 +70,6 @@
                 >tweet it</a
             >
         </footer>
-
-        <!-- Core script -->
-        <script src="../dist/rangetouch.js"></script>
 
         <!-- Shr -->
         <script src="https://cdn.shr.one/1.0.1/shr.js"></script>

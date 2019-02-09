@@ -15,6 +15,10 @@ const isArray = input => Array.isArray(input);
 const isNodeList = input => instanceOf(input, NodeList);
 const isElement = input => instanceOf(input, Element);
 const isEvent = input => instanceOf(input, Event);
+const isEmpty = input =>
+    isNullOrUndefined(input) ||
+    ((isString(input) || isArray(input) || isNodeList(input)) && !input.length) ||
+    (isObject(input) && !Object.keys(input).length);
 
 export default {
     nullOrUndefined: isNullOrUndefined,
@@ -27,4 +31,5 @@ export default {
     nodeList: isNodeList,
     element: isElement,
     event: isEvent,
+    empty: isEmpty,
 };

@@ -1,5 +1,5 @@
 // Trigger event
-export default function trigger(element, type) {
+export function trigger(element, type) {
     if (!element || !type) {
         return;
     }
@@ -10,3 +10,5 @@ export default function trigger(element, type) {
     // Dispatch the event
     element.dispatchEvent(event);
 }
+
+export default {};
