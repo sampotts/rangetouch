@@ -1,5 +1,5 @@
 // ==========================================================================
-// rangetouch.js v1.0.5
+// rangetouch.js v1.0.6
 // Making <input type="range"> work on touch devices
 // https://github.com/selz/rangetouch
 // License: The MIT License (MIT)
@@ -21,7 +21,7 @@
         // Browser globals (root is window)
         root.rangetouch = factory(root, document);
     }
-}(typeof window !== 'undefined' ? window : this, function(window, document) {
+})(typeof window !== 'undefined' ? window : this, function(window, document) {
     'use strict';
 
     // Default config
@@ -31,13 +31,13 @@
         thumbWidth: 15,
         selectors: {
             range: '[type="range"]',
-            disabled: '.rangetouch--disabled'
+            disabled: '.rangetouch--disabled',
         },
         events: {
             start: 'touchstart',
             move: 'touchmove',
-            end: 'touchend'
-        }
+            end: 'touchend',
+        },
     };
 
     // Setup
@@ -50,7 +50,10 @@
         // Add useful CSS
         if (settings.addCSS) {
             var stylesheet = createStyleSheet();
-            stylesheet.insertRule(getSelector() + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }', 0);
+            stylesheet.insertRule(
+                getSelector() + ' { user-select: none; -webkit-user-select: none; touch-action: manipulation; }',
+                0,
+            );
         }
 
         // Listen for events
@@ -66,8 +69,8 @@
 
     // Create a CSS stylesheet
     function createStyleSheet() {
-        var style = document.createElement("style");
-        style.appendChild(document.createTextNode(""));
+        var style = document.createElement('style');
+        style.appendChild(document.createTextNode(''));
         document.head.appendChild(style);
         return style.sheet;
     }
@@ -90,7 +93,7 @@
                 params = params || {
                     bubbles: false,
                     cancelable: false,
-                    detail: undefined
+                    detail: undefined,
                 };
                 var custom = document.createEvent('CustomEvent');
                 custom.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
@@ -102,7 +105,7 @@
         // Create and dispatch the event
         var event = new CustomEvent(type, {
             bubbles: true,
-            detail: properties
+            detail: properties,
         });
 
         // Dispatch the event
@@ -111,7 +114,7 @@
 
     // Get the selector for the range
     function getSelector() {
-        return [settings.selectors.range, ":not(", settings.selectors.disabled, ")"].join("");
+        return [settings.selectors.range, ':not(', settings.selectors.disabled, ')'].join('');
     }
 
     // Check if element is disabled
@@ -140,8 +143,8 @@
             0,
             // Number of digits right of decimal point.
             (match[1] ? match[1].length : 0) -
-            // Adjust for scientific notation.
-            (match[2] ? +match[2] : 0)
+                // Adjust for scientific notation.
+                (match[2] ? +match[2] : 0),
         );
     }
 
@@ -151,7 +154,7 @@
             var places = getDecimalPlaces(step);
             return parseFloat(number.toFixed(places));
         }
-        return (Math.round(number / step) * step);
+        return Math.round(number / step) * step;
     }
 
     // Get the value based on touch position
@@ -166,10 +169,10 @@
         // Calculate percentage
         var percent;
         var clientRect = input.getBoundingClientRect();
-        var thumbWidth = (((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100);
+        var thumbWidth = ((100 / clientRect.width) * (settings.thumbWidth / 2)) / 100;
 
         // Determine left percentage
-        percent = ((100 / clientRect.width) * (touch.clientX - clientRect.left));
+        percent = (100 / clientRect.width) * (touch.clientX - clientRect.left);
 
         // Don't allow outside bounds
         if (percent < 0) {
@@ -180,9 +183,9 @@
 
         // Factor in the thumb offset
         if (percent < 50) {
-            percent -= ((100 - (percent * 2)) * thumbWidth);
+            percent -= (100 - percent * 2) * thumbWidth;
         } else if (percent > 50) {
-            percent += (((percent - 50) * 2) * thumbWidth);
+            percent += (percent - 50) * 2 * thumbWidth;
         }
 
         // Find the closest step to the mouse position
@@ -203,7 +206,7 @@
         event.target.value = get(event);
 
         // Trigger input event
-        trigger(event.target, (event.type === settings.events.end ? 'change' : 'input'));
+        trigger(event.target, event.type === settings.events.end ? 'change' : 'input');
     }
 
     // Run setup automatically
@@ -212,6 +215,6 @@
     return {
         set: function(setting, value) {
             settings[setting] = value;
-        }
+        },
     };
-}));
+});
