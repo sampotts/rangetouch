@@ -71,7 +71,7 @@ RangeTouch costs money to run, not my time - I donate that for free but domains,
 
 ## Thanks
 
-[![Fastly](https://www.fastly.com/sites/all/themes/custom/fastly2016/logo.png)](https://www.fastly.com/)
+[![Fastly](https://cdn.plyr.io/static/fastly-logo.png)](https://www.fastly.com/)
 
 Thanks to [Fastly](https://www.fastly.com/) for providing the CDN services.
 
