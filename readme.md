@@ -25,7 +25,7 @@ While building [plyr](https://plyr.io) I noticed how bad the experience was tryi
 Either use the ES6 module:
 
 ```javascript
-import RangeTouch from 'rangetouch`;
+import RangeTouch from 'rangetouch';
 ```
 
 ...or include the script:
