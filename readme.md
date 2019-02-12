@@ -10,7 +10,7 @@ While building [plyr](https://plyr.io) I noticed how bad the experience was tryi
 
 ## Features
 
--   Less than 1KB minified and gzipped
+-   ~1KB minified and gzipped
 -   No dependencies (written in "vanilla" JavaScript)
 -   Uses event delgation so no need to re-run after DOM manipulation
 
