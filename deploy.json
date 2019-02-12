@@ -5,7 +5,7 @@
         "region": "us-east-1"
     },
     "docs": {
-        "bucket": "rangetouch",
+        "bucket": "rangetouch.com",
         "domain": "rangetouch.com",
         "region": "us-east-1"
     }

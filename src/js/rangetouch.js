@@ -1,20 +1,15 @@
 // ==========================================================================
-// rangetouch.js v2.0.0-beta.1
+// rangetouch.js v2.0.0
 // Making <input type="range"> work on touch devices
 // https://github.com/sampotts/rangetouch
 // License: The MIT License (MIT)
 // ==========================================================================
 
+import defaults from './config';
 import { matches } from './utils/css';
 import { trigger } from './utils/events';
 import is from './utils/is';
 import { round } from './utils/numbers';
-
-const defaults = {
-    addCSS: true, // Add CSS to the element to improve usability (required here or in your CSS!)
-    thumbWidth: 15, // The width of the thumb handle
-    watch: true, // Watch for new elements that match a string target
-};
 
 class RangeTouch {
     /**

@@ -1,21 +1,20 @@
 {
-    "rangetouch": {
-        "js": {
-            "rangetouch.js": [
-                "src/js/rangetouch.js"
-            ]
+    "js": {
+        "rangetouch.js": {
+            "src": "./src/js/rangetouch.js",
+            "dist": "./dist/",
+            "formats": ["es", "umd"]
+        },
+        "docs.js": {
+            "src": "./docs/src/js/docs.js",
+            "dist": "./docs/dist/",
+            "formats": ["iife"]
         }
     },
-    "docs": {
-        "less": {
-            "docs.css": [
-                "docs/src/less/docs.less"
-            ]
-        },
-        "js": {
-            "docs.js": [
-                "docs/src/js/docs.js"
-            ]
+    "css": {
+        "docs.css": {
+            "src": "./docs/src/less/docs.less",
+            "dist": "./docs/dist/"
         }
     }
 }
