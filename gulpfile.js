@@ -100,15 +100,13 @@ const babelrc = {
 const sizeOptions = { showFiles: true, gzip: true };
 
 // JavaScript
-const namespace = 'RangeTouch';
-
 Object.entries(build.js).forEach(([filename, entry]) => {
     entry.formats.forEach(format => {
         const name = `js:${filename}:${format}`;
         tasks.js.push(name);
 
-        gulp.task(name, () => {
-            return gulp
+        gulp.task(name, () =>
+            gulp
                 .src(entry.src)
                 .pipe(plumber())
                 .pipe(sourcemaps.init())
@@ -118,8 +116,7 @@ Object.entries(build.js).forEach(([filename, entry]) => {
                             plugins: [resolve(), commonjs(), babel(babelrc)],
                         },
                         {
-                            name: namespace,
-                            // exports: 'named',
+                            name: entry.namespace,
                             format,
                         },
                     ),
@@ -131,8 +128,9 @@ Object.entries(build.js).forEach(([filename, entry]) => {
                     }),
                 )
                 .pipe(size(sizeOptions))
-                .pipe(gulp.dest(entry.dist));
-        });
+                .pipe(sourcemaps.write(''))
+                .pipe(gulp.dest(entry.dist)),
+        );
     });
 });
 
@@ -141,8 +139,8 @@ Object.entries(build.css).forEach(([filename, entry]) => {
     const name = `css:${filename}`;
     tasks.css.push(name);
 
-    gulp.task(name, () => {
-        return gulp
+    gulp.task(name, () =>
+        gulp
             .src(entry.src)
             .pipe(plumber())
             .pipe(less())
@@ -153,8 +151,8 @@ Object.entries(build.css).forEach(([filename, entry]) => {
             )
             .pipe(clean())
             .pipe(size(sizeOptions))
-            .pipe(gulp.dest(entry.dist));
-    });
+            .pipe(gulp.dest(entry.dist)),
+    );
 });
 
 // SVG Sprite
@@ -162,16 +160,16 @@ Object.entries(build.sprite).forEach(([filename, entry]) => {
     const name = `sprite:${filename}`;
     tasks.sprite.push(name);
 
-    gulp.task(name, () => {
-        return gulp
+    gulp.task(name, () =>
+        gulp
             .src(entry.src)
             .pipe(plumber())
             .pipe(imagemin())
             .pipe(svgstore())
             .pipe(rename({ basename: path.parse(filename).name }))
             .pipe(size(sizeOptions))
-            .pipe(gulp.dest(entry.dist));
-    });
+            .pipe(gulp.dest(entry.dist)),
+    );
 });
 
 // Build all JS

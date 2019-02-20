@@ -3,12 +3,14 @@
         "rangetouch.js": {
             "src": "./src/js/rangetouch.js",
             "dist": "./dist/",
-            "formats": ["es", "umd"]
+            "formats": ["es", "umd"],
+            "namespace": "RangeTouch"
         },
         "docs.js": {
             "src": "./docs/src/js/docs.js",
             "dist": "./docs/dist/",
-            "formats": ["iife"]
+            "formats": ["iife"],
+            "namespace": "Docs"
         }
     },
     "css": {
