@@ -5,7 +5,10 @@
     "homepage": "https://rangetouch.com",
     "author": "Sam Potts <sam@potts.es>",
     "license": "MIT",
-    "main": "src/js/rangetouch.js",
+    "main": "dist/rangetouch.js",
+    "module": "dist/rangetouch.mjs",
+    "jsnext:main": "dist/rangetouch.mjs",
+    "browser": "dist/rangetouch.js",
     "browserslist": [
         "> 1%"
     ],
@@ -21,20 +24,19 @@
     "bugs": {
         "url": "https://github.com/sampotts/rangetouch/issues"
     },
-    "directories": {
-        "doc": "docs"
-    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "lint": "eslint src/js",
+        "deploy": "yarn lint && gulp deploy"
     },
     "dependencies": {},
     "devDependencies": {
-        "aws-sdk": "^2.400.0",
-        "@babel/core": "^7.2.2",
+        "aws-sdk": "^2.406.0",
+        "@babel/core": "^7.3.3",
         "@babel/preset-env": "^7.3.1",
         "babel-eslint": "^10.0.1",
         "babel-preset-minify": "^0.5.0",
-        "eslint": "^5.13.0",
+        "del": "^3.0.0",
+        "eslint": "^5.14.1",
         "eslint-config-airbnb-base": "^13.1.0",
         "eslint-config-prettier": "^4.0.0",
         "eslint-plugin-import": "^2.16.0",
@@ -44,14 +46,14 @@
         "gulp-awspublish": "^4.0.0",
         "gulp-better-rollup": "^3.4.0",
         "gulp-clean-css": "^4.0.0",
+        "gulp-imagemin": "^5.0.3",
         "gulp-less": "^4.0.1",
         "gulp-plumber": "^1.2.1",
         "gulp-rename": "^1.4.0",
         "gulp-replace": "^1.0.0",
         "gulp-s3": "^0.11.0",
         "gulp-size": "^3.0.0",
-        "gulp-sourcemaps": "^2.6.4",
-        "gulp-imagemin": "^5.0.3",
+        "gulp-sourcemaps": "^2.6.5",
         "gulp-svgstore": "^7.0.1",
         "gulp-terser": "^1.1.7",
         "prettier-eslint": "^8.8.2",
@@ -60,7 +62,6 @@
         "rollup-plugin-commonjs": "^9.2.0",
         "rollup-plugin-node-resolve": "^4.0.0",
         "rollup-plugin-replace": "^2.1.0",
-        "run-sequence": "^2.2.1",
         "stylelint": "^9.10.1",
         "stylelint-config-prettier": "^4.0.0",
         "stylelint-config-recommended": "^2.1.0",

@@ -34,7 +34,7 @@ const aws = require('aws-sdk');
 const publish = require('gulp-awspublish');
 
 const pkg = require('./package.json');
-const bundles = require('./bundles.json');
+const build = require('./build.json');
 const deploy = require('./deploy.json');
 
 const { browserslist, version } = pkg;
@@ -77,8 +77,7 @@ const paths = {
 
 // Task arrays
 const tasks = {
-    less: [],
-    sass: [],
+    css: [],
     js: [],
     sprite: [],
 };
@@ -103,7 +102,7 @@ const sizeOptions = { showFiles: true, gzip: true };
 // JavaScript
 const namespace = 'RangeTouch';
 
-Object.entries(bundles.js).forEach(([filename, entry]) => {
+Object.entries(build.js).forEach(([filename, entry]) => {
     entry.formats.forEach(format => {
         const name = `js:${filename}:${format}`;
         tasks.js.push(name);
@@ -138,14 +137,14 @@ Object.entries(bundles.js).forEach(([filename, entry]) => {
 });
 
 // CSS
-
-Object.entries(bundles.css).forEach(([filename, entry]) => {
-    const name = `less:${filename}`;
-    tasks.less.push(name);
+Object.entries(build.css).forEach(([filename, entry]) => {
+    const name = `css:${filename}`;
+    tasks.css.push(name);
 
     gulp.task(name, () => {
         return gulp
             .src(entry.src)
+            .pipe(plumber())
             .pipe(less())
             .pipe(
                 prefix(browserslist, {
@@ -159,18 +158,20 @@ Object.entries(bundles.css).forEach(([filename, entry]) => {
 });
 
 // SVG Sprite
+Object.entries(build.sprite).forEach(([filename, entry]) => {
+    const name = `sprite:${filename}`;
+    tasks.sprite.push(name);
 
-const name = 'sprite';
-tasks.sprite.push(name);
-
-gulp.task(name, () => {
-    return gulp
-        .src(paths.docs.src.sprite)
-        .pipe(imagemin())
-        .pipe(svgstore())
-        .pipe(rename({ basename: 'docs' }))
-        .pipe(size(sizeOptions))
-        .pipe(gulp.dest(paths.docs.dist));
+    gulp.task(name, () => {
+        return gulp
+            .src(entry.src)
+            .pipe(plumber())
+            .pipe(imagemin())
+            .pipe(svgstore())
+            .pipe(rename({ basename: path.parse(filename).name }))
+            .pipe(size(sizeOptions))
+            .pipe(gulp.dest(entry.dist));
+    });
 });
 
 // Build all JS
@@ -183,12 +184,12 @@ gulp.task('watch', () => {
 
     // Docs
     gulp.watch(paths.docs.src.js, gulp.parallel(...tasks.js));
-    gulp.watch(paths.docs.src.less, gulp.parallel(...tasks.less));
+    gulp.watch(paths.docs.src.less, gulp.parallel(...tasks.css));
     gulp.watch(paths.docs.src.sprite, gulp.parallel(...tasks.sprite));
 });
 
 // Default gulp task
-gulp.task('default', gulp.parallel(...tasks.js, ...tasks.less, ...tasks.sprite, 'watch'));
+gulp.task('default', gulp.parallel(...tasks.js, ...tasks.css, ...tasks.sprite, 'watch'));
 
 // Publish a version to CDN and docs
 // --------------------------------------------
@@ -313,4 +314,4 @@ gulp.task('docs:error', () => {
 gulp.task('docs', gulp.parallel('docs:readme', 'docs:src', 'docs:svg', 'docs:paths', 'docs:error'));
 
 // Do everything
-gulp.task('deploy', gulp.series(gulp.parallel(...tasks.js, ...tasks.less, ...tasks.sprite), 'cdn', 'docs'));
+gulp.task('deploy', gulp.series(gulp.parallel(...tasks.js, ...tasks.css, ...tasks.sprite), 'cdn', 'docs'));

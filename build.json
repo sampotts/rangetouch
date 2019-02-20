@@ -16,5 +16,11 @@
             "src": "./docs/src/less/docs.less",
             "dist": "./docs/dist/"
         }
+    },
+    "sprite": {
+        "docs.svg": {
+            "src": "./docs/src/sprite/*.svg",
+            "dist": "./docs/dist"
+        }
     }
 }
