@@ -96,7 +96,6 @@ class RangeTouch {
 
         // Add useful CSS
         if (this.config.addCSS) {
-            // TODO: Restore original values on destroy
             this.element.style.userSelect = 'none';
             this.element.style.webKitUserSelect = 'none';
             this.element.style.touchAction = 'manipulation';
@@ -111,6 +110,13 @@ class RangeTouch {
         // Bail if not a touch enabled device
         if (!RangeTouch.enabled) {
             return;
+        }
+
+        // Remove useful CSS
+        if (this.config.addCSS) {
+            this.element.style.userSelect = '';
+            this.element.style.webKitUserSelect = '';
+            this.element.style.touchAction = '';
         }
 
         this.listeners(false);
