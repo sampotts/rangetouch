@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0
+
+-   Rewritten using ES6 syntax and a proper `RangeTouch` class
+-   No longer using event delegation do to compatibility issues
+
 ## v1.0.6
 
 -   Fixed issue with stylesheet re-use

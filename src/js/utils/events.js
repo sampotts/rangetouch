@@ -5,7 +5,7 @@ export function trigger(element, type) {
     }
 
     // Create and dispatch the event
-    const event = new Event(type);
+    const event = new Event(type, { bubbles: true });
 
     // Dispatch the event
     element.dispatchEvent(event);

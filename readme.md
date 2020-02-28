@@ -6,11 +6,11 @@ A super tiny library to make `<input type="range">` sliders work better on touch
 
 ## Why bother?
 
-While building [plyr](https://plyr.io) I noticed how bad the experience was trying to use `<input type="range">` is on a touch device (particularly iOS). Touching the track on a desktop will jump the thumb handle to that point. However on some touch devices this simply focuses the input and to adjust the value you need to touch and drag the handle. This is something that I can't help but feel will eventually be fixed by the browser vendors but for now, you can use RangeTouch to fill that gap.
+While building the [Plyr media player](https://plyr.io) I noticed how bad the experience was trying to use `<input type="range">` is on a touch device (particularly iOS). Touching the track on a desktop will jump the thumb handle to that point. However on some touch devices this simply focuses the input and to adjust the value you need to touch and drag the handle. This is something that I can't help but feel will eventually be fixed by the browser vendors but for now, you can use RangeTouch to fill that gap.
 
 ## Features
 
--   Less than 1KB minified and gzipped
+-   ~1KB minified and gzipped
 -   No dependencies (written in "vanilla" JavaScript)
 -   Uses event delgation so no need to re-run after DOM manipulation
 
@@ -27,7 +27,7 @@ import RangeTouch from 'rangetouch';
 ...or include the script:
 
 ```html
-<script src="https://rangetouch.com/1.0.6/rangetouch.js"></script>
+<script src="https://cdn.rangetouch.com/2.0.0/rangetouch.js"></script>
 ```
 
 ### 2. Create instance(s)
