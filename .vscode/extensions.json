@@ -6,7 +6,8 @@
         "dbaeumer.vscode-eslint",
         "wix.vscode-import-cost",
         "esbenp.prettier-vscode",
-        "shinnn.stylelint",
-        "wayou.vscode-todo-highlight"
+        "stylelint.vscode-stylelint",
+        "wayou.vscode-todo-highlight",
+        "pflannery.vscode-versionlens"
     ]
 }

@@ -30,7 +30,7 @@ class RangeTouch {
             return;
         }
 
-        this.config = Object.assign({}, defaults, options);
+        this.config = { ...defaults, ...options };
 
         this.init();
     }
@@ -61,7 +61,7 @@ class RangeTouch {
             return null;
         }
 
-        const config = Object.assign({}, defaults, options);
+        const config = { ...defaults, ...options };
 
         if (is.string(target) && config.watch) {
             // Create an observer instance
@@ -188,6 +188,7 @@ class RangeTouch {
         event.preventDefault();
 
         // Set value
+        // eslint-disable-next-line no-param-reassign
         event.target.value = this.get(event);
 
         // Trigger event

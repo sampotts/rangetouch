@@ -11,4 +11,4 @@ export function trigger(element, type) {
     element.dispatchEvent(event);
 }
 
-export default {};
+export default { trigger };

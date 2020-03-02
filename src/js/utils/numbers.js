@@ -24,4 +24,4 @@ export function round(number, step) {
     return Math.round(number / step) * step;
 }
 
-export default {};
+export default { getDecimalPlaces, round };
