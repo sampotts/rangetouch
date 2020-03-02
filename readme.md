@@ -27,7 +27,7 @@ import RangeTouch from 'rangetouch';
 ...or include the script:
 
 ```html
-<script src="https://cdn.rangetouch.com/2.0.0/rangetouch.js"></script>
+<script src="https://rangetouch.com/2.0.1/rangetouch.js"></script>
 ```
 
 ### 2. Create instance(s)
