@@ -47,18 +47,18 @@ class RangeTouch {
     static setup(target, options = {}) {
         let targets = null;
 
-        if (is.empty(target) || is.string(target)) {
-            targets = Array.from(document.querySelectorAll(is.string(target) ? target : 'input[type="range"]'));
+        if (is.empty(target)) {
+          target = 'input[type="range"]';
+        }
+
+        if (is.string(target)) {
+          targets = Array.from(document.querySelectorAll(target));
         } else if (is.element(target)) {
             targets = [target];
         } else if (is.nodeList(target)) {
             targets = Array.from(target);
         } else if (is.array(target)) {
             targets = target.filter(is.element);
-        }
-
-        if (is.empty(targets)) {
-            return null;
         }
 
         const config = { ...defaults, ...options };
