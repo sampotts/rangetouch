@@ -1,6 +1,6 @@
 // Element matches a selector
 export function matches(element, selector) {
-    const prototype = { Element };
+    const prototype = Element.prototype;
 
     function match() {
         return Array.from(document.querySelectorAll(selector)).includes(this);
