@@ -73,6 +73,7 @@ This will return an array of RangeTouch instances that it setup.
 | addCSS     | Boolean | `true`  | Whether to inject CSS to improve the usability of the inputs. It's recommended you add this yourself if you don't want RangeTouch to take care of it.                                                                                                                                                                                                                          |
 | thumbWidth | Integer | `15`    | This value is used as part of the calculation to determine the value the users selects when touching the range track. Unfortunately as JavaScript can't access the shadow DOM, this value can't be automatically determined. I would recommend customisation (and setting the size of the thumb) given all OS and browser combinations seem to render the control differently. |
 | watch      | Boolean | `true`  | Watch for new elements added to the DOM that match your string selector. **Note**: This only applies when using the multiple instance `RangeTouch` setup method and also requires a string selector as the first argument.                                                                                                                                                     |
+| supportsRTL      | Boolean | `false`  | Check if the range input is in rtl mode and adjust behavior accordingly.                                                                                                                                                    |
 
 ## API
 

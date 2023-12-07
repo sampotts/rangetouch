@@ -10,6 +10,7 @@ import { matches } from './utils/css';
 import { trigger } from './utils/events';
 import is from './utils/is';
 import { round } from './utils/numbers';
+import { isElementRTL } from './utils/element';
 
 class RangeTouch {
     /**
@@ -147,6 +148,7 @@ class RangeTouch {
         const min = parseFloat(input.getAttribute('min')) || 0;
         const max = parseFloat(input.getAttribute('max')) || 100;
         const step = parseFloat(input.getAttribute('step')) || 1;
+        const isRTL = this.config.supportsRTL && isElementRTL(input);
         const delta = max - min;
 
         // Calculate percentage
@@ -172,7 +174,11 @@ class RangeTouch {
         }
 
         // Find the closest step to the mouse position
-        return min + round(delta * (percent / 100), step);
+        if (isRTL) {
+            return max - round(delta * (percent / 100), step);
+        } else {
+            return min + round(delta * (percent / 100), step);
+        }
     }
 
     /**

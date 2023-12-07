@@ -40,5 +40,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Set range thumb size
-    RangeTouch.setup('.js-example', { thumbWidth: 20 });
+    RangeTouch.setup('.js-example', { thumbWidth: 20, supportsRTL: true });
 });
